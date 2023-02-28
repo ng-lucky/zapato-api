@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: zapato-api
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn zapato_api.wsgi:application"
+    
