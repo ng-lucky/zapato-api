@@ -20,13 +20,15 @@ class ZUserManager(BaseUserManager):
         return user
     
     def create_superuser(self, email, password, first_name, last_name):
-        user = self.create_user(email,
+        user = self.create_user(email, 
                                 password=password,
                                 first_name=first_name,
                                 last_name=last_name)
         user.is_admin = True
         user.save(using=self._db)
         return user
+    
+
 
 class ZUser(AbstractBaseUser):
     USER_TYPES = (
@@ -64,3 +66,5 @@ class ZUser(AbstractBaseUser):
         "Does the user have a specific permission?"
         # Simplest possible answer: Yes, always
         return True
+    
+
