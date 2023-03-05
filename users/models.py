@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.db.models.signals import post_save
+from django.dispatch import dispatcher, receiver
+from rest_framework.authtoken.models import Token
 
 # Create your models here.
 
@@ -68,3 +71,8 @@ class ZUser(AbstractBaseUser):
         return True
     
 
+
+@receiver(post_save, sender=ZUser)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
